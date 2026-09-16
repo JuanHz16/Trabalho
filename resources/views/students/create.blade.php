@@ -1,0 +1,1 @@
+@extends('layouts.app') @section('content')<div class="max-w-3xl"><h1 class="text-3xl font-bold mb-6">Cadastrar aluno</h1><div class="bg-white p-6 rounded-2xl shadow-sm"><form method="POST" action="{{ route('students.store') }}">@include('students.form')</form></div></div>@endsection

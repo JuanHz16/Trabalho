@@ -1,0 +1,9 @@
+<?php
+namespace Database\Seeders;
+use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Student;
+use App\Models\Course;
+use App\Models\Enrollment;
+use Illuminate\Support\Facades\Hash;
+class DatabaseSeeder extends Seeder { public function run(): void { $students=[]; foreach([['Ana Clara Souza','2026001','ana@faculdade.test'],['Bruno Lima Alves','2026002','bruno@faculdade.test'],['Carla Mendes Rocha','2026003','carla@faculdade.test'],['Diego Martins','2026004','diego@faculdade.test']] as [$name,$registration,$email]) $students[]=Student::create(['name'=>$name,'registration'=>$registration,'email'=>$email,'phone'=>'(11) 99999-0000','birth_date'=>'2002-04-15','status'=>'Ativo']); foreach([['admin','Administrador','admin@faculdade.test'],['secretaria','Secretaria Acadêmica','secretaria@faculdade.test']] as [$role,$name,$email]) User::create(['name'=>$name,'email'=>$email,'password'=>Hash::make('12345678'),'role'=>$role]); User::create(['name'=>'Ana Clara Souza','email'=>'ana@faculdade.test','password'=>Hash::make('12345678'),'role'=>'aluno','student_id'=>$students[0]->id]); $courses=[]; foreach([['Desenvolvimento Web','WEB101','Laravel, MVC e aplicações web modernas',80],['Banco de Dados','BD202','Modelagem, SQL e persistência de dados',60],['Engenharia de Software','ES303','Processos e práticas de desenvolvimento',60]] as [$name,$code,$description,$workload]) $courses[]=Course::create(compact('name','code','description','workload')); Enrollment::create(['student_id'=>$students[0]->id,'course_id'=>$courses[0]->id,'semester'=>'2026/2','status'=>'Cursando']); Enrollment::create(['student_id'=>$students[0]->id,'course_id'=>$courses[1]->id,'semester'=>'2026/2','status'=>'Cursando']); Enrollment::create(['student_id'=>$students[1]->id,'course_id'=>$courses[0]->id,'semester'=>'2026/2','status'=>'Aprovado','final_grade'=>8.5]); } }
