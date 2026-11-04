@@ -7,5 +7,6 @@ class Student extends Model {
  protected $fillable=['name','registration','email','phone','birth_date','status'];
  protected function casts(): array { return ['birth_date'=>'date']; }
  public function enrollments(){ return $this->hasMany(Enrollment::class); }
+ public function pagamentos(){ return $this->hasMany(Pagamento::class); }
  public function user(){ return $this->hasOne(User::class,'student_id'); }
 }
