@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\PagamentoController;
 use App\Http\Controllers\ProfileController;
 
 Route::get('/', fn () => redirect()->route('dashboard'));
@@ -19,6 +20,8 @@ Route::middleware('auth')->group(function () {
         ->middleware('role:admin,secretaria')->name('courses.store');
 
     Route::resource('enrollments', EnrollmentController::class)->only(['index', 'create', 'store']);
+
+    Route::resource('pagamentos', PagamentoController::class);
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
